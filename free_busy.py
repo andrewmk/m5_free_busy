@@ -23,7 +23,7 @@ def web_page():
     .button2{background-color: #00ff00;}.button3{background-color: #ff00ff</style></head>
     <body><h1>Free/busy</h1> 
     <p>State: <strong>""" + str(led_state) + """</strong></p>
-    <p>battery: <strong>""" + str(batt) + """</strong></p>
+    <p>Battery level: <strong>""" + str(batt) + """</strong></p>
     <p>Charging?: <strong>""" + str(isCharging) + """</strong></p>
     <p>Full?: <strong>""" + str(isFull) + """</strong></p>
     <p><a href="/?led=on"><button class="button">BUSY</button></a></p>
