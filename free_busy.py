@@ -34,63 +34,63 @@ def web_page():
 
 ip = wifiCfg.wlan_sta.ifconfig()
 
-#create labels to display the information on the M5Stack screen
+#Create labels to display the information on the M5Stack screen
 label1 = M5TextBox(0, 0, "Text", lcd.FONT_Default,0xFFFFFF, rotate=0)
 label2 = M5TextBox(0, 12, "Text", lcd.FONT_Default,0xFFFFFF, rotate=0)
-label3 = M5TextBox(0, 24, "Text", lcd.FONT_Default,0xFFFFFF, rotate=0)
-label4 = M5TextBox(0, 50, "Text", lcd.FONT_Default,0xFFFFFF, rotate=0)
-label5 = M5TextBox(120, 200, "Text", lcd.FONT_Default,0xFFFFFF, rotate=0)
-rectangle0 = M5Rect(0, 0, 318, 240, 0xff0000, 0xFFFFFF)
+
+redRectangle = M5Rect(0, 0, 318, 240, 0xff0000, 0xFFFFFF)
 busylabel = M5TextBox(61, 81, "BUSY", lcd.FONT_DejaVu72,0xFFFFFF, rotate=0)
 
 rgb.setColorAll(0x000000)
 setScreenColor(0x000000)
 lcd.setBrightness(0)
-rectangle0.hide()
+redRectangle.hide()
 busylabel.hide()
 
 response = None
 wifiCfg.doConnect('<<SSID>>', '<<PASSWORD>>')
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('<<IP_ADDRESS>>', 80))
-s.listen(5)
 
 if wifiCfg.wlan_sta.isconnected():
   label1.setText('wifi connected')
   ip = wifiCfg.wlan_sta.ifconfig()
   label2.setText('Your IP Address is: ' + str(ip[0]))
+  wait_ms(2000)
 else:
   label1.setText('wifi not connected')
-  wait_ms(2)
+  wait_ms(2000)
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((ip[0], 80))
+s.listen(5)
 
 while True:
   conn, addr = s.accept()
   request = conn.recv(1024)
   request = str(request)
-  #label4.setText('Content = %s' % request)
-  #label3.setText('Got a connection from %s' % str(addr))
+
   led_on = request.find('/?led=on')
   led_off = request.find('/?led=off')
   btn_press = request.find('/?btn=on')
 
   if led_on == 6:
     state = 1
-    #label5.setText('LED ON')
     rgb.setColorAll(0xFF0000)
     setScreenColor(0xFF0000)
     lcd.setBrightness(30)
-    rectangle0.show()
+    redRectangle.show()
     busylabel.show()
+  
   if led_off == 6:
     state = 0
-    #label5.setText('LED OFF')
     rgb.setColorAll(0x000000)
     setScreenColor(0x000000)
     lcd.setBrightness(0)
-    rectangle0.hide()
+    redRectangle.hide()
     busylabel.hide()
+  
   if btn_press == 6:
     speaker.tone(400,200)
+  
   response = web_page()
   conn.send('HTTP/1.1 200 OK\n')
   conn.send('Content-Type: text/html\n')
