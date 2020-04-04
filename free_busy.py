@@ -38,7 +38,7 @@ ip = wifiCfg.wlan_sta.ifconfig()
 label1 = M5TextBox(0, 0, "Text", lcd.FONT_Default,0xFFFFFF, rotate=0)
 label2 = M5TextBox(0, 12, "Text", lcd.FONT_Default,0xFFFFFF, rotate=0)
 
-redRectangle = M5Rect(0, 0, 318, 240, 0xff0000, 0xFFFFFF)
+redRectangle = M5Rect(0, 0, 320, 240, 0xff0000, 0xFFFFFF)
 busylabel = M5TextBox(61, 81, "BUSY", lcd.FONT_DejaVu72,0xFFFFFF, rotate=0)
 
 rgb.setColorAll(0x000000)
