@@ -20,11 +20,16 @@ def web_page():
     <link rel="icon" href="data:,"> <style>html{font-family: Comic Sans MS; display:inline-block; margin: 0px auto; text-align: center;}
     h1{color: #0F3376; padding: 2vh;}p{font-size: 1.5rem;}.button{display: inline-block; background-color: #FF0000; border: none; 
     border-radius: 4px; color: white; padding: 16px 40px; text-decoration: none; font-size: 40px; margin: 2px; cursor: pointer;}
-    .button2{background-color: #00ff00;}.button3{background-color: #ff00ff</style></head><body> <h1>Free/busy</h1> 
-    <p>State: <strong>""" + str(led_state) + """</strong></p><p>battery: <strong>""" + str(batt) + """</strong></p><p>Charging?: <strong>""" + str(isCharging) + """</strong></p><p>Full?: <strong>""" + str(isFull) + """</strong></p><p><a href="/?led=on"><button class="button">BUSY</button></a></p>
+    .button2{background-color: #00ff00;}.button3{background-color: #ff00ff</style></head>
+    <body><h1>Free/busy</h1> 
+    <p>State: <strong>""" + str(led_state) + """</strong></p>
+    <p>battery: <strong>""" + str(batt) + """</strong></p>
+    <p>Charging?: <strong>""" + str(isCharging) + """</strong></p>
+    <p>Full?: <strong>""" + str(isFull) + """</strong></p>
+    <p><a href="/?led=on"><button class="button">BUSY</button></a></p>
     <p><a href="/?led=off"><button class="button button2">FREE</button></a></p>
     <p><a href="/?btn=on"><button class="button button3">Speaker</button></a></p>
-    </html>"""
+    </body></html>"""
     return html
 
 ip = wifiCfg.wlan_sta.ifconfig()
